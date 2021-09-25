@@ -1,0 +1,47 @@
+name: Publish
+on:
+  workflow_dispatch: {}
+
+jobs:
+  release:
+    name: Do Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: fix fetch
+        run: |
+          # fetch the branch to be published
+          git remote set-branches --add origin gh-pages
+          # fetch tags to verify the tag is not exists
+          git fetch origin
+      - uses: anatawa12/something-releaser@v2
+      - uses: nanasess/setup-php@master
+        with:
+          php-version: '8'
+
+      # building
+      - run: npm ci
+      - run: npm run all
+
+      - name: Publish
+        run: |
+          set -eu
+          shopt -s extglob
+          # set user name
+          set-git-user anatawa12-bot
+          HASH="$(git rev-parse HEAD)"
+          # checkout gh-pages at origin/gh-pages witout chanigng local tree
+          git branch gh-pages origin/gh-pages
+          git symbolic-ref HEAD refs/heads/gh-pages
+          # build
+          php builder.php
+          # remove files except for dst
+          rm -rf .!(git) !(dst)
+          # move everythings in dst
+          mv -rf dst/* .
+          # add modified files and commit
+          git add .
+          git reset --soft $(git commit-tree -p HEAD -p $HASH -m "release at $HASH" $(git write-tree))
+          # create push
+          git push
+        shell: bash
