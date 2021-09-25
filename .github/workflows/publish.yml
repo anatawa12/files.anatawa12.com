@@ -36,7 +36,7 @@ jobs:
           # remove files except for dst
           rm -rf .!(git||.) !(dst)
           # move everythings in dst
-          mv -rf dst/* .
+          mv -f dst/* .
           # add modified files and commit
           git add .
           git reset --soft $(git commit-tree -p HEAD -p $HASH -m "release at $HASH" $(git write-tree))
