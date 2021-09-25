@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__.'/vendor/autoload.php';
-$this_file_dir = dirname(__FILE__);
+$this_file_dir = getcwd();
 $id = $argv[1];
 $id_dir = $this_file_dir . "/" . $id;
 if (!file_exists($id_dir)) {
