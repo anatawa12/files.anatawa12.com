@@ -20,8 +20,6 @@ jobs:
           php-version: '8'
 
       # building
-      - run: npm ci
-      - run: npm run all
 
       - name: Publish
         run: |
