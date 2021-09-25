@@ -1,28 +1,11 @@
 <?php
 require_once __DIR__.'/vendor/autoload.php';
 $this_file_dir = dirname(__FILE__);
-$id = substr($_SERVER["REQUEST_URI"], 1);
-//if (array_key_exists("id", $_GET)) $id = $_GET["id"];
-//else $id = "";
+$id = $argv[1];
 $id_dir = $this_file_dir . "/" . $id;
-if (realpath($id_dir) != $this_file_dir){
-	if (file_exists($id_dir."/index.html")) {
-		print file_get_contents($id_dir."/index.html");
-		return;
-	}
-	if (file_exists($id_dir."/index.php")) {
-		include ($id_dir."/index.php");
-		return;
-	}
-}
 if (!file_exists($id_dir)) {
-	header("HTTP/1.0 404 Not Found");
-	include __DIR__ . "/404.php";
-	return;
-}
-if (is_file($id_dir)) {
-	print file_get_contents($id_dir);
-	return;
+	echo "unknown dir: $id";
+	exit(1);
 }
 
 $parser = new \cebe\markdown\GithubMarkdown();
