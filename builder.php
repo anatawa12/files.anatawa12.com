@@ -1,6 +1,6 @@
 <?php
 
-$repo = "/Users/anatawa12/IdeaProjects/files.anatawa12.com";
+$repo = __DIR__;
 // php source root
 $src = "$repo/php";
 // resources root
