@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__.'/vendor/autoload.php';
 require_once dirname(__FILE__)."/spyc.php";
-$mods = Spyc::YAMLLoad(file_get_contents("private/mods.yml"));
+$mods = Spyc::YAMLLoad(file_get_contents($argv[1]."/mods.yml"));
 if (array_key_exists("name", $_GET)) {
 	$mod_name = $_GET["name"];
 } else {

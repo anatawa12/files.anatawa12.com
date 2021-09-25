@@ -1,6 +1,6 @@
 <?php
 require_once dirname(__FILE__)."/spyc.php";
-$mods = Spyc::YAMLLoad(file_get_contents("private/mods.yml"));
+$mods = Spyc::YAMLLoad(file_get_contents($argv[1]."/mods.yml"));
 $title = "anatawa12's mods";
 
 function body() {

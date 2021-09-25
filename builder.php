@@ -50,6 +50,8 @@ $ignored = [
 
 @mkdir(directory: "$dst", recursive: true);
 run_php("$src/404.php", [], "$dst/404.html");
+@mkdir(directory: "$dst/mod", recursive: true);
+run_php("$src/mod/index.php", ["$res/mod"], "$dst/mod/index.html");
 
 build_index("");
 
@@ -60,7 +62,11 @@ foreach (make_iterator() as $key => $file_info) {
         continue;
     echo $relative . PHP_EOL;
     if ($file_info->isDir()) {
-        build_index($relative);
+        if (str_starts_with($relative, "mod")) {
+            @mkdir(directory: "$dst/$relative", recursive: true);
+        } else {
+            build_index($relative);
+        }
     } else if ($file_info->isFile()) {
         copy("$res/$relative", "$dst/$relative");
     }
