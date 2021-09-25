@@ -1,0 +1,8 @@
+<!doctype html>
+<meta charset="UTF-8">
+<title>Redirect</title>
+<script>
+    const url = new URL(document.location.href);
+    url.pathname = url.pathname.replace(/\/$/, "").replace(/\/index\.html$/, "").replace(/\.php$/, ".html");
+    document.location.href = url.toString();
+</script>

@@ -1,0 +1,102 @@
+<html lang="ja">
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<title>{name}</title>
+	<link rel="stylesheet" type="text/css" href="/mod/main.css"></head>
+<body>
+<input type="checkbox" class="check" id="checked">
+<label class="menu-btn" for="checked">
+	<span class="bar top"></span>
+	<span class="bar middle"></span>
+	<span class="bar bottom"></span>
+	<span class="menu-btn__text">MENU</span>
+</label>
+<label class="close-menu" for="checked"></label>
+<nav class="drawer-menu">
+	<ul>
+	<li><a href="/">files home</a></li>
+	<li><a href="/mod">mods home</a></li>
+	<li>mods</li>
+			<li><a href="/mod/modInfo.html?name=nfr-pasmo">NFR-PasmoMod</a></li>
+				<li><a href="/mod/modInfo.html?name=kmda">KotlinModDevApi</a></li>
+				<li><a href="/mod/modInfo.html?name=oc_rtm">OCRTM Connector</a></li>
+				<li><a href="/mod/modInfo.html?name=goto-name">goto name;</a></li>
+				<li><a href="/mod/modInfo.html?name=arabjr_pack">anatawa12 Rail and Block Join rss pack</a></li>
+				<li><a href="/mod/modInfo.html?name=AIS_pack">Anatawa12 Infra Systems Pack</a></li>
+		</ul>
+</nav>
+<div class="contents">
+	<div class="contents__inner">
+		    <template id="not-found-meta">
+        <meta name="robots" content="noindex"/>
+    </template>
+    <template id="not-found-body">
+        <h1>Not Found</h1>
+    </template>
+    <template id="success-body">
+        <h1><!-- cur_mod.name --></h1>
+        <div class="mods-info"></div>
+
+        <div class="mod_downloads">
+            <h2>versions and downloads</h2>
+            <table>
+                <tr>
+                    <th>Minecraft version</th>
+                    <th>modVersion</th>
+                    <th>deponds</th>
+                    <th>download</th>
+                </tr>
+                <!-- datas -->
+            </table>
+        </div>
+    </template>
+
+    <script>
+        function not_found() {
+            document.title = "Not Found";
+            document.head.appendChild(document.querySelector("#not-found-meta").content.cloneNode(true));
+            return document.querySelector("#not-found-body").content.cloneNode(true);
+        }
+        function new_td(body) {
+            const td = document.createElement("td");
+            td.innerHTML = body
+            return td;
+        }
+        function main() {
+            /** @type (Array<{dir: string, name: string, jarNameTemplate: string, info: string, mcAndModVersions: {[P in string]: {var: string, depends: string[]}[]}}>) */
+            const data = JSON.parse("[{\"name\":\"NFR-PasmoMod\",\"dir\":\"nfr-pasmo\",\"mcAndModVersions\":{\"1.12.2\":[{\"var\":\"0.0.1\",\"depends\":[\"KotlinModDevApi@[1.12.2-0.0.1,1.12.2-0.0.2]\"]},{\"var\":\"0.0.2\",\"depends\":[\"KotlinModDevApi@[1.12.2-0.0.1,1.12.2-0.0.2]\"]},{\"var\":\"0.0.3\",\"depends\":[\"KotlinModDevApi@[1.12.2-0.0.1,1.12.2-0.0.2]\",\"OpenComputers-MC1.12.2@[1.7.2.67]\"]},{\"var\":\"0.0.4\",\"depends\":[\"KotlinModDevApi@[1.12.2-0.0.2]\",\"OpenComputers-MC1.12.2@[1.7.2.67]\"]}]},\"jarNameTemplate\":\"NFR-Pasmo-${version}.jar\",\"info\":\"<p>This mod is for <a href=\\\"http:\\\/\\\/www.nfrserver.info\\\/\\\">NFR Server<\\\/a>.<\\\/p>\\n\"},{\"name\":\"KotlinModDevApi\",\"dir\":\"kmda\",\"mcAndModVersions\":{\"1.12.2\":[{\"var\":\"1.12.2-0.0.1\",\"depends\":[\"minecraftForge@[1.12.2-14.23.2.2611,)\"]},{\"var\":\"1.12.2-0.0.2\",\"depends\":[\"minecraftForge@[1.12.2-14.23.2.2611,)\"]}]},\"jarNameTemplate\":\"KotlinModDevApi-${version}.jar\",\"info\":\"<p>A mod for anatawa12's mod. This is an library mod<\\\/p>\\n\"},{\"name\":\"OCRTM Connector\",\"dir\":\"oc_rtm\",\"mcAndModVersions\":{\"1.12.2\":[{\"var\":\"1.0.0\",\"depends\":[\"RTM@[2.4.5,)\",\"KotlinModDevApi@[1.12.2-0.0.1,1.12.2-0.0.2]\"]}]},\"jarNameTemplate\":\"OCRTM-${version}.jar\",\"info\":\"\"},{\"name\":\"goto name;\",\"dir\":\"goto-name\",\"mcAndModVersions\":{\"1.12.2\":[{\"var\":\"1.0\",\"depends\":[\"minecraftForge@[1.12.2-14.23.2.2611,)\"]}]},\"jarNameTemplate\":\"goto-name-${version}.jar\",\"info\":\"<p>an Teleporter command mod.<\\\/p>\\n<h3>how to use<\\\/h3>\\n<h4>create label<\\\/h4>\\n<p><code>\\\/setlabel &lt;label name&gt;<\\\/code>\\ncreate label to here<\\\/p>\\n<h4>remove label<\\\/h4>\\n<p><code>\\\/rmlabel &lt;label name&gt;<\\\/code>\\nremove label<\\\/p>\\n<h4>goto label<\\\/h4>\\n<p><code>\\\/goto &lt;label name&gt;<\\\/code>\\ngo to label<\\\/p>\\n\"},{\"name\":\"anatawa12 Rail and Block Join rss pack\",\"dir\":\"arabjr_pack\",\"mcAndModVersions\":{\"1.12.2\":[{\"var\":\"1.0.0\",\"depends\":[\"RTM@[2.4.5,)\"]}]},\"jarNameTemplate\":\"ARABJR_Pack-${version}.zip\",\"info\":\"\"},{\"name\":\"Anatawa12 Infra Systems Pack\",\"dir\":\"AIS_pack\",\"mcAndModVersions\":{\"1.12.2\":[{\"var\":\"1.0.0\",\"depends\":[\"RTM@[2.4.5,)\"]},{\"var\":\"1.0.1\",\"depends\":[\"RTM@[2.4.5,)\"]}]},\"jarNameTemplate\":\"Anatawa12InfraSystems-${version}.zip\",\"info\":\"\"}]");
+            const params = new URLSearchParams(window.location.search);
+            const mod_name = params.get("name");
+            if (mod_name == null) return not_found();
+            const cur_mod = data.find(v => v.dir === mod_name);
+            if (cur_mod === undefined) return not_found;
+            const jarNameTemplate = cur_mod.jarNameTemplate;
+
+            // body creation
+            document.title = cur_mod.name;
+            /** @type DocumentFragment */
+            const body = document.querySelector("#success-body").content.cloneNode(true);
+            body.querySelector("h1").textContent = cur_mod.name;
+            body.querySelector(".mods-info").innerHTML = `<h2>mod info</h2>${cur_mod.info}`;
+            const table = body.querySelector("table");
+            for (let [mcVersion, modVersions] of Object.entries(cur_mod.mcAndModVersions)) {
+                for (let modVersionInfo of modVersions) {
+                    const tr = document.createElement("tr");
+                    tr.appendChild(new_td(mcVersion));
+                    tr.appendChild(new_td(modVersionInfo.var));
+                    tr.appendChild(new_td(modVersionInfo.depends.join("<br>")));
+                    const jarName = jarNameTemplate.replace("${version}", modVersionInfo.var);
+                    tr.appendChild(new_td(`<a href='mods/${cur_mod.dir}/${jarName}'>${jarName}</a>`));
+                    table.appendChild(tr);
+                }
+            }
+            return body;
+        }
+        document.currentScript.parentNode.appendChild(main());
+    </script>
+    	</div>
+</div>
+</body>
+</html>
