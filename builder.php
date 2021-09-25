@@ -46,12 +46,14 @@ function make_iterator(): RecursiveIteratorIterator {
 $ignored = [
     ".htaccess",
     "info.yml",
+    "mods.yml",
 ];
 
 @mkdir(directory: "$dst", recursive: true);
 run_php("$src/404.php", [], "$dst/404.html");
 @mkdir(directory: "$dst/mod", recursive: true);
 run_php("$src/mod/index.php", ["$res/mod"], "$dst/mod/index.html");
+run_php("$src/mod/modInfo.php", ["$res/mod"], "$dst/mod/modInfo.html");
 
 build_index("");
 

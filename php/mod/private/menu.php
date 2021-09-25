@@ -5,7 +5,7 @@
 	<?php
 	foreach ($mods as $mod) {
 		?>
-		<li><a href="/<?php print $pref ?>/modInfo.php?name=<?php print $mod["dir"] ?>"><?php print $mod["name"] ?></a></li>
+		<li><a href="/<?php print $pref ?>/modInfo.html?name=<?php print $mod["dir"] ?>"><?php print $mod["name"] ?></a></li>
 		<?php
 	} ?>
 </ul>
